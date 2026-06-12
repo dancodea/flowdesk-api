@@ -16,7 +16,7 @@ exports.LeaveModule = LeaveModule;
 exports.LeaveModule = LeaveModule = __decorate([
     (0, common_1.Module)({
         controllers: [leave_controller_1.LeaveController],
-        providers: [leave_service_1.LeaveService]
+        providers: [leave_service_1.LeaveService],
     })
 ], LeaveModule);
 //# sourceMappingURL=leave.module.js.map

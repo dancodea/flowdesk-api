@@ -17,6 +17,8 @@ export type UserMinAggregateOutputType = {
     emailVerified: boolean | null;
     avatarUrl: string | null;
     isActive: boolean | null;
+    twoFaEnabled: boolean | null;
+    twoFaSecret: string | null;
     lastLoginAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -31,6 +33,8 @@ export type UserMaxAggregateOutputType = {
     emailVerified: boolean | null;
     avatarUrl: string | null;
     isActive: boolean | null;
+    twoFaEnabled: boolean | null;
+    twoFaSecret: string | null;
     lastLoginAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -45,6 +49,8 @@ export type UserCountAggregateOutputType = {
     emailVerified: number;
     avatarUrl: number;
     isActive: number;
+    twoFaEnabled: number;
+    twoFaSecret: number;
     lastLoginAt: number;
     createdAt: number;
     updatedAt: number;
@@ -60,6 +66,8 @@ export type UserMinAggregateInputType = {
     emailVerified?: true;
     avatarUrl?: true;
     isActive?: true;
+    twoFaEnabled?: true;
+    twoFaSecret?: true;
     lastLoginAt?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -74,6 +82,8 @@ export type UserMaxAggregateInputType = {
     emailVerified?: true;
     avatarUrl?: true;
     isActive?: true;
+    twoFaEnabled?: true;
+    twoFaSecret?: true;
     lastLoginAt?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -88,6 +98,8 @@ export type UserCountAggregateInputType = {
     emailVerified?: true;
     avatarUrl?: true;
     isActive?: true;
+    twoFaEnabled?: true;
+    twoFaSecret?: true;
     lastLoginAt?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -127,6 +139,8 @@ export type UserGroupByOutputType = {
     emailVerified: boolean;
     avatarUrl: string | null;
     isActive: boolean;
+    twoFaEnabled: boolean;
+    twoFaSecret: string | null;
     lastLoginAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
@@ -150,10 +164,16 @@ export type UserWhereInput = {
     emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaEnabled?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaSecret?: Prisma.StringNullableFilter<"User"> | string | null;
     lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null;
+    refreshTokens?: Prisma.RefreshTokenListRelationFilter;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter;
+    passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter;
+    sentInvitations?: Prisma.InvitationListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -165,10 +185,16 @@ export type UserOrderByWithRelationInput = {
     emailVerified?: Prisma.SortOrder;
     avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    twoFaEnabled?: Prisma.SortOrder;
+    twoFaSecret?: Prisma.SortOrderInput | Prisma.SortOrder;
     lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     organization?: Prisma.OrganizationOrderByWithRelationInput;
+    refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput;
+    sentInvitations?: Prisma.InvitationOrderByRelationAggregateInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -184,10 +210,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaEnabled?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaSecret?: Prisma.StringNullableFilter<"User"> | string | null;
     lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null;
+    refreshTokens?: Prisma.RefreshTokenListRelationFilter;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter;
+    passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter;
+    sentInvitations?: Prisma.InvitationListRelationFilter;
 }, "id" | "organizationId_email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -199,6 +231,8 @@ export type UserOrderByWithAggregationInput = {
     emailVerified?: Prisma.SortOrder;
     avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    twoFaEnabled?: Prisma.SortOrder;
+    twoFaSecret?: Prisma.SortOrderInput | Prisma.SortOrder;
     lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -219,6 +253,8 @@ export type UserScalarWhereWithAggregatesInput = {
     emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
     avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
+    twoFaEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
+    twoFaSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
@@ -232,10 +268,16 @@ export type UserCreateInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput;
 };
 export type UserUncheckedCreateInput = {
     id?: string;
@@ -247,9 +289,15 @@ export type UserUncheckedCreateInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput;
 };
 export type UserUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -260,10 +308,16 @@ export type UserUpdateInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -275,9 +329,15 @@ export type UserUncheckedUpdateInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput;
 };
 export type UserCreateManyInput = {
     id?: string;
@@ -289,6 +349,8 @@ export type UserCreateManyInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -302,6 +364,8 @@ export type UserUpdateManyMutationInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -316,6 +380,8 @@ export type UserUncheckedUpdateManyInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -342,6 +408,8 @@ export type UserCountOrderByAggregateInput = {
     emailVerified?: Prisma.SortOrder;
     avatarUrl?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    twoFaEnabled?: Prisma.SortOrder;
+    twoFaSecret?: Prisma.SortOrder;
     lastLoginAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -356,6 +424,8 @@ export type UserMaxOrderByAggregateInput = {
     emailVerified?: Prisma.SortOrder;
     avatarUrl?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    twoFaEnabled?: Prisma.SortOrder;
+    twoFaSecret?: Prisma.SortOrder;
     lastLoginAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -370,9 +440,19 @@ export type UserMinOrderByAggregateInput = {
     emailVerified?: Prisma.SortOrder;
     avatarUrl?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    twoFaEnabled?: Prisma.SortOrder;
+    twoFaSecret?: Prisma.SortOrder;
     lastLoginAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+};
+export type UserScalarRelationFilter = {
+    is?: Prisma.UserWhereInput;
+    isNot?: Prisma.UserWhereInput;
+};
+export type UserNullableScalarRelationFilter = {
+    is?: Prisma.UserWhereInput | null;
+    isNot?: Prisma.UserWhereInput | null;
 };
 export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationInput, Prisma.UserUncheckedCreateWithoutOrganizationInput> | Prisma.UserCreateWithoutOrganizationInput[] | Prisma.UserUncheckedCreateWithoutOrganizationInput[];
@@ -418,6 +498,56 @@ export type EnumRoleFieldUpdateOperationsInput = {
 export type BoolFieldUpdateOperationsInput = {
     set?: boolean;
 };
+export type UserCreateNestedOneWithoutRefreshTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
+    upsert?: Prisma.UserUpsertWithoutRefreshTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+};
+export type UserCreateNestedOneWithoutEmailVerificationTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutEmailVerificationTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput;
+    upsert?: Prisma.UserUpsertWithoutEmailVerificationTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput, Prisma.UserUpdateWithoutEmailVerificationTokensInput>, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+};
+export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput;
+    upsert?: Prisma.UserUpsertWithoutPasswordResetTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+};
+export type UserCreateNestedOneWithoutSentInvitationsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSentInvitationsInput, Prisma.UserUncheckedCreateWithoutSentInvitationsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentInvitationsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneWithoutSentInvitationsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSentInvitationsInput, Prisma.UserUncheckedCreateWithoutSentInvitationsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentInvitationsInput;
+    upsert?: Prisma.UserUpsertWithoutSentInvitationsInput;
+    disconnect?: Prisma.UserWhereInput | boolean;
+    delete?: Prisma.UserWhereInput | boolean;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentInvitationsInput, Prisma.UserUpdateWithoutSentInvitationsInput>, Prisma.UserUncheckedUpdateWithoutSentInvitationsInput>;
+};
 export type UserCreateWithoutOrganizationInput = {
     id?: string;
     email: string;
@@ -427,9 +557,15 @@ export type UserCreateWithoutOrganizationInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput;
 };
 export type UserUncheckedCreateWithoutOrganizationInput = {
     id?: string;
@@ -440,9 +576,15 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput;
 };
 export type UserCreateOrConnectWithoutOrganizationInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -478,9 +620,367 @@ export type UserScalarWhereInput = {
     emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaEnabled?: Prisma.BoolFilter<"User"> | boolean;
+    twoFaSecret?: Prisma.StringNullableFilter<"User"> | string | null;
     lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+};
+export type UserCreateWithoutRefreshTokensInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput;
+};
+export type UserUncheckedCreateWithoutRefreshTokensInput = {
+    id?: string;
+    organizationId?: string | null;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput;
+};
+export type UserCreateOrConnectWithoutRefreshTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+};
+export type UserUpsertWithoutRefreshTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+};
+export type UserUpdateWithoutRefreshTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserUncheckedUpdateWithoutRefreshTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserCreateWithoutEmailVerificationTokensInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput;
+};
+export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
+    id?: string;
+    organizationId?: string | null;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput;
+};
+export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+};
+export type UserUpsertWithoutEmailVerificationTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+};
+export type UserUpdateWithoutEmailVerificationTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserCreateWithoutPasswordResetTokensInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput;
+};
+export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+    id?: string;
+    organizationId?: string | null;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput;
+};
+export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+};
+export type UserUpsertWithoutPasswordResetTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+};
+export type UserUpdateWithoutPasswordResetTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput;
+};
+export type UserCreateWithoutSentInvitationsInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutSentInvitationsInput = {
+    id?: string;
+    organizationId?: string | null;
+    email: string;
+    passwordHash?: string | null;
+    fullName: string;
+    role?: $Enums.Role;
+    emailVerified?: boolean;
+    avatarUrl?: string | null;
+    isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutSentInvitationsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSentInvitationsInput, Prisma.UserUncheckedCreateWithoutSentInvitationsInput>;
+};
+export type UserUpsertWithoutSentInvitationsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutSentInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentInvitationsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSentInvitationsInput, Prisma.UserUncheckedCreateWithoutSentInvitationsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutSentInvitationsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutSentInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentInvitationsInput>;
+};
+export type UserUpdateWithoutSentInvitationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutSentInvitationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fullName?: Prisma.StringFieldUpdateOperationsInput | string;
+    role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateManyOrganizationInput = {
     id?: string;
@@ -491,6 +991,8 @@ export type UserCreateManyOrganizationInput = {
     emailVerified?: boolean;
     avatarUrl?: string | null;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: string | null;
     lastLoginAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -504,9 +1006,15 @@ export type UserUpdateWithoutOrganizationInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutOrganizationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -517,9 +1025,15 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput;
 };
 export type UserUncheckedUpdateManyWithoutOrganizationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -530,9 +1044,38 @@ export type UserUncheckedUpdateManyWithoutOrganizationInput = {
     emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    twoFaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type UserCountOutputType = {
+    refreshTokens: number;
+    emailVerificationTokens: number;
+    passwordResetTokens: number;
+    sentInvitations: number;
+};
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs;
+    emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs;
+    passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs;
+    sentInvitations?: boolean | UserCountOutputTypeCountSentInvitationsArgs;
+};
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
+};
+export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.RefreshTokenWhereInput;
+};
+export type UserCountOutputTypeCountEmailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.EmailVerificationTokenWhereInput;
+};
+export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PasswordResetTokenWhereInput;
+};
+export type UserCountOutputTypeCountSentInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.InvitationWhereInput;
 };
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -544,10 +1087,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     emailVerified?: boolean;
     avatarUrl?: boolean;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: boolean;
     lastLoginAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     organization?: boolean | Prisma.User$organizationArgs<ExtArgs>;
+    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
+    emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>;
+    passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>;
+    sentInvitations?: boolean | Prisma.User$sentInvitationsArgs<ExtArgs>;
+    _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -559,6 +1109,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     emailVerified?: boolean;
     avatarUrl?: boolean;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: boolean;
     lastLoginAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
@@ -574,6 +1126,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     emailVerified?: boolean;
     avatarUrl?: boolean;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: boolean;
     lastLoginAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
@@ -589,13 +1143,20 @@ export type UserSelectScalar = {
     emailVerified?: boolean;
     avatarUrl?: boolean;
     isActive?: boolean;
+    twoFaEnabled?: boolean;
+    twoFaSecret?: boolean;
     lastLoginAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "email" | "passwordHash" | "fullName" | "role" | "emailVerified" | "avatarUrl" | "isActive" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "email" | "passwordHash" | "fullName" | "role" | "emailVerified" | "avatarUrl" | "isActive" | "twoFaEnabled" | "twoFaSecret" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     organization?: boolean | Prisma.User$organizationArgs<ExtArgs>;
+    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
+    emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>;
+    passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>;
+    sentInvitations?: boolean | Prisma.User$sentInvitationsArgs<ExtArgs>;
+    _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     organization?: boolean | Prisma.User$organizationArgs<ExtArgs>;
@@ -607,6 +1168,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: "User";
     objects: {
         organization: Prisma.$OrganizationPayload<ExtArgs> | null;
+        refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[];
+        emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[];
+        passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[];
+        sentInvitations: Prisma.$InvitationPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -618,6 +1183,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         emailVerified: boolean;
         avatarUrl: string | null;
         isActive: boolean;
+        twoFaEnabled: boolean;
+        twoFaSecret: string | null;
         lastLoginAt: Date | null;
         createdAt: Date;
         updatedAt: Date;
@@ -674,6 +1241,10 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
     organization<T extends Prisma.User$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    sentInvitations<T extends Prisma.User$sentInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -688,6 +1259,8 @@ export interface UserFieldRefs {
     readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>;
     readonly avatarUrl: Prisma.FieldRef<"User", 'String'>;
     readonly isActive: Prisma.FieldRef<"User", 'Boolean'>;
+    readonly twoFaEnabled: Prisma.FieldRef<"User", 'Boolean'>;
+    readonly twoFaSecret: Prisma.FieldRef<"User", 'String'>;
     readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>;
@@ -797,6 +1370,50 @@ export type User$organizationArgs<ExtArgs extends runtime.Types.Extensions.Inter
     omit?: Prisma.OrganizationOmit<ExtArgs> | null;
     include?: Prisma.OrganizationInclude<ExtArgs> | null;
     where?: Prisma.OrganizationWhereInput;
+};
+export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.RefreshTokenSelect<ExtArgs> | null;
+    omit?: Prisma.RefreshTokenOmit<ExtArgs> | null;
+    include?: Prisma.RefreshTokenInclude<ExtArgs> | null;
+    where?: Prisma.RefreshTokenWhereInput;
+    orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[];
+    cursor?: Prisma.RefreshTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[];
+};
+export type User$emailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.EmailVerificationTokenSelect<ExtArgs> | null;
+    omit?: Prisma.EmailVerificationTokenOmit<ExtArgs> | null;
+    include?: Prisma.EmailVerificationTokenInclude<ExtArgs> | null;
+    where?: Prisma.EmailVerificationTokenWhereInput;
+    orderBy?: Prisma.EmailVerificationTokenOrderByWithRelationInput | Prisma.EmailVerificationTokenOrderByWithRelationInput[];
+    cursor?: Prisma.EmailVerificationTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.EmailVerificationTokenScalarFieldEnum | Prisma.EmailVerificationTokenScalarFieldEnum[];
+};
+export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.PasswordResetTokenSelect<ExtArgs> | null;
+    omit?: Prisma.PasswordResetTokenOmit<ExtArgs> | null;
+    include?: Prisma.PasswordResetTokenInclude<ExtArgs> | null;
+    where?: Prisma.PasswordResetTokenWhereInput;
+    orderBy?: Prisma.PasswordResetTokenOrderByWithRelationInput | Prisma.PasswordResetTokenOrderByWithRelationInput[];
+    cursor?: Prisma.PasswordResetTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[];
+};
+export type User$sentInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.InvitationSelect<ExtArgs> | null;
+    omit?: Prisma.InvitationOmit<ExtArgs> | null;
+    include?: Prisma.InvitationInclude<ExtArgs> | null;
+    where?: Prisma.InvitationWhereInput;
+    orderBy?: Prisma.InvitationOrderByWithRelationInput | Prisma.InvitationOrderByWithRelationInput[];
+    cursor?: Prisma.InvitationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.InvitationScalarFieldEnum | Prisma.InvitationScalarFieldEnum[];
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

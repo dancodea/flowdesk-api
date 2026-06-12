@@ -1,3 +1,10 @@
+export declare const InvitationStatus: {
+    readonly PENDING: "PENDING";
+    readonly ACCEPTED: "ACCEPTED";
+    readonly EXPIRED: "EXPIRED";
+    readonly REVOKED: "REVOKED";
+};
+export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus];
 export declare const Plan: {
     readonly STARTER: "STARTER";
     readonly GROWTH: "GROWTH";

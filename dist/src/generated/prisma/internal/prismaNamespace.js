@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.UserScalarFieldEnum = exports.OrganizationScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.InvitationScalarFieldEnum = exports.PasswordResetTokenScalarFieldEnum = exports.EmailVerificationTokenScalarFieldEnum = exports.RefreshTokenScalarFieldEnum = exports.UserScalarFieldEnum = exports.OrganizationScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/client"));
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
@@ -61,7 +61,11 @@ exports.JsonNull = runtime.JsonNull;
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     Organization: 'Organization',
-    User: 'User'
+    User: 'User',
+    RefreshToken: 'RefreshToken',
+    EmailVerificationToken: 'EmailVerificationToken',
+    PasswordResetToken: 'PasswordResetToken',
+    Invitation: 'Invitation'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -94,9 +98,50 @@ exports.UserScalarFieldEnum = {
     emailVerified: 'emailVerified',
     avatarUrl: 'avatarUrl',
     isActive: 'isActive',
+    twoFaEnabled: 'twoFaEnabled',
+    twoFaSecret: 'twoFaSecret',
     lastLoginAt: 'lastLoginAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+exports.RefreshTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    deviceInfo: 'deviceInfo',
+    ipAddress: 'ipAddress',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt'
+};
+exports.EmailVerificationTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+};
+exports.PasswordResetTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+};
+exports.InvitationScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    email: 'email',
+    role: 'role',
+    departmentId: 'departmentId',
+    tokenHash: 'tokenHash',
+    status: 'status',
+    expiresAt: 'expiresAt',
+    acceptedAt: 'acceptedAt',
+    invitedById: 'invitedById',
+    createdAt: 'createdAt'
 };
 exports.SortOrder = {
     asc: 'asc',

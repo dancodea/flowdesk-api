@@ -36,5 +36,17 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get user(): Prisma.UserDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get emailVerificationToken(): Prisma.EmailVerificationTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get invitation(): Prisma.InvitationDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(): PrismaClientConstructor;

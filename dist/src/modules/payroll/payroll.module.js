@@ -16,7 +16,7 @@ exports.PayrollModule = PayrollModule;
 exports.PayrollModule = PayrollModule = __decorate([
     (0, common_1.Module)({
         controllers: [payroll_controller_1.PayrollController],
-        providers: [payroll_service_1.PayrollService]
+        providers: [payroll_service_1.PayrollService],
     })
 ], PayrollModule);
 //# sourceMappingURL=payroll.module.js.map

@@ -16,7 +16,7 @@ exports.PerformanceModule = PerformanceModule;
 exports.PerformanceModule = PerformanceModule = __decorate([
     (0, common_1.Module)({
         controllers: [performance_controller_1.PerformanceController],
-        providers: [performance_service_1.PerformanceService]
+        providers: [performance_service_1.PerformanceService],
     })
 ], PerformanceModule);
 //# sourceMappingURL=performance.module.js.map

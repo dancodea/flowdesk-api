@@ -16,7 +16,7 @@ exports.ReportsModule = ReportsModule;
 exports.ReportsModule = ReportsModule = __decorate([
     (0, common_1.Module)({
         controllers: [reports_controller_1.ReportsController],
-        providers: [reports_service_1.ReportsService]
+        providers: [reports_service_1.ReportsService],
     })
 ], ReportsModule);
 //# sourceMappingURL=reports.module.js.map

@@ -16,7 +16,7 @@ exports.LocationsModule = LocationsModule;
 exports.LocationsModule = LocationsModule = __decorate([
     (0, common_1.Module)({
         controllers: [locations_controller_1.LocationsController],
-        providers: [locations_service_1.LocationsService]
+        providers: [locations_service_1.LocationsService],
     })
 ], LocationsModule);
 //# sourceMappingURL=locations.module.js.map

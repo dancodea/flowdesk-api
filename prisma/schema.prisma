@@ -6,8 +6,9 @@
 // loaded via prisma.config.ts.
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -33,7 +34,8 @@ model Organization {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  users User[]
+  users       User[]
+  invitations Invitation[]
 
   @@map("organizations")
 }
@@ -49,13 +51,91 @@ model User {
   emailVerified  Boolean       @default(false) @map("email_verified")
   avatarUrl      String?       @map("avatar_url")
   isActive       Boolean       @default(true) @map("is_active")
+  twoFaEnabled   Boolean       @default(false) @map("two_fa_enabled")
+  twoFaSecret    String?       @map("two_fa_secret")
   lastLoginAt    DateTime?     @map("last_login_at")
   createdAt      DateTime      @default(now()) @map("created_at")
   updatedAt      DateTime      @updatedAt @map("updated_at")
 
+  refreshTokens          RefreshToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens    PasswordResetToken[]
+  sentInvitations        Invitation[]   @relation("InvitedBy")
+
   @@unique([organizationId, email])
   @@index([organizationId])
   @@map("users")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Auth tokens & sessions
+// ─────────────────────────────────────────────────────────────────────────────
+
+model RefreshToken {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String    @map("token_hash")
+  deviceInfo String?   @map("device_info")
+  ipAddress  String?   @map("ip_address")
+  expiresAt  DateTime  @map("expires_at")
+  revokedAt  DateTime? @map("revoked_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique @map("token_hash")
+  expiresAt DateTime @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("email_verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique @map("token_hash")
+  expiresAt DateTime @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model Invitation {
+  id             String           @id @default(uuid()) @db.Uuid
+  organizationId String           @map("organization_id") @db.Uuid
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           Role             @default(EMPLOYEE)
+  departmentId   String?          @map("department_id") @db.Uuid
+  tokenHash      String           @unique @map("token_hash")
+  status         InvitationStatus @default(PENDING)
+  expiresAt      DateTime         @map("expires_at")
+  acceptedAt     DateTime?        @map("accepted_at")
+  invitedById    String?          @map("invited_by") @db.Uuid
+  invitedBy      User?            @relation("InvitedBy", fields: [invitedById], references: [id], onDelete: SetNull)
+  createdAt      DateTime         @default(now()) @map("created_at")
+
+  @@index([organizationId, status])
+  @@map("invitations")
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
 }
 
 enum Plan {

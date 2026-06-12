@@ -16,7 +16,7 @@ exports.BillingModule = BillingModule;
 exports.BillingModule = BillingModule = __decorate([
     (0, common_1.Module)({
         controllers: [billing_controller_1.BillingController],
-        providers: [billing_service_1.BillingService]
+        providers: [billing_service_1.BillingService],
     })
 ], BillingModule);
 //# sourceMappingURL=billing.module.js.map

@@ -159,6 +159,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export declare const ModelName: {
     readonly Organization: "Organization";
     readonly User: "User";
+    readonly RefreshToken: "RefreshToken";
+    readonly EmailVerificationToken: "EmailVerificationToken";
+    readonly PasswordResetToken: "PasswordResetToken";
+    readonly Invitation: "Invitation";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -171,7 +175,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "organization" | "user";
+        modelProps: "organization" | "user" | "refreshToken" | "emailVerificationToken" | "passwordResetToken" | "invitation";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -323,6 +327,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        RefreshToken: {
+            payload: Prisma.$RefreshTokenPayload<ExtArgs>;
+            fields: Prisma.RefreshTokenFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.RefreshTokenFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.RefreshTokenFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                findFirst: {
+                    args: Prisma.RefreshTokenFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.RefreshTokenFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                findMany: {
+                    args: Prisma.RefreshTokenFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[];
+                };
+                create: {
+                    args: Prisma.RefreshTokenCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                createMany: {
+                    args: Prisma.RefreshTokenCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.RefreshTokenCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[];
+                };
+                delete: {
+                    args: Prisma.RefreshTokenDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                update: {
+                    args: Prisma.RefreshTokenUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.RefreshTokenDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.RefreshTokenUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.RefreshTokenUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[];
+                };
+                upsert: {
+                    args: Prisma.RefreshTokenUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>;
+                };
+                aggregate: {
+                    args: Prisma.RefreshTokenAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateRefreshToken>;
+                };
+                groupBy: {
+                    args: Prisma.RefreshTokenGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.RefreshTokenGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.RefreshTokenCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.RefreshTokenCountAggregateOutputType> | number;
+                };
+            };
+        };
+        EmailVerificationToken: {
+            payload: Prisma.$EmailVerificationTokenPayload<ExtArgs>;
+            fields: Prisma.EmailVerificationTokenFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.EmailVerificationTokenFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.EmailVerificationTokenFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                findFirst: {
+                    args: Prisma.EmailVerificationTokenFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.EmailVerificationTokenFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                findMany: {
+                    args: Prisma.EmailVerificationTokenFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>[];
+                };
+                create: {
+                    args: Prisma.EmailVerificationTokenCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                createMany: {
+                    args: Prisma.EmailVerificationTokenCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.EmailVerificationTokenCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>[];
+                };
+                delete: {
+                    args: Prisma.EmailVerificationTokenDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                update: {
+                    args: Prisma.EmailVerificationTokenUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.EmailVerificationTokenDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.EmailVerificationTokenUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.EmailVerificationTokenUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>[];
+                };
+                upsert: {
+                    args: Prisma.EmailVerificationTokenUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailVerificationTokenPayload>;
+                };
+                aggregate: {
+                    args: Prisma.EmailVerificationTokenAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateEmailVerificationToken>;
+                };
+                groupBy: {
+                    args: Prisma.EmailVerificationTokenGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.EmailVerificationTokenGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.EmailVerificationTokenCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.EmailVerificationTokenCountAggregateOutputType> | number;
+                };
+            };
+        };
+        PasswordResetToken: {
+            payload: Prisma.$PasswordResetTokenPayload<ExtArgs>;
+            fields: Prisma.PasswordResetTokenFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.PasswordResetTokenFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.PasswordResetTokenFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                findFirst: {
+                    args: Prisma.PasswordResetTokenFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.PasswordResetTokenFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                findMany: {
+                    args: Prisma.PasswordResetTokenFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[];
+                };
+                create: {
+                    args: Prisma.PasswordResetTokenCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                createMany: {
+                    args: Prisma.PasswordResetTokenCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[];
+                };
+                delete: {
+                    args: Prisma.PasswordResetTokenDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                update: {
+                    args: Prisma.PasswordResetTokenUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.PasswordResetTokenDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.PasswordResetTokenUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[];
+                };
+                upsert: {
+                    args: Prisma.PasswordResetTokenUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>;
+                };
+                aggregate: {
+                    args: Prisma.PasswordResetTokenAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregatePasswordResetToken>;
+                };
+                groupBy: {
+                    args: Prisma.PasswordResetTokenGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.PasswordResetTokenGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.PasswordResetTokenCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.PasswordResetTokenCountAggregateOutputType> | number;
+                };
+            };
+        };
+        Invitation: {
+            payload: Prisma.$InvitationPayload<ExtArgs>;
+            fields: Prisma.InvitationFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.InvitationFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.InvitationFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                findFirst: {
+                    args: Prisma.InvitationFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.InvitationFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                findMany: {
+                    args: Prisma.InvitationFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>[];
+                };
+                create: {
+                    args: Prisma.InvitationCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                createMany: {
+                    args: Prisma.InvitationCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.InvitationCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>[];
+                };
+                delete: {
+                    args: Prisma.InvitationDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                update: {
+                    args: Prisma.InvitationUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.InvitationDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.InvitationUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.InvitationUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>[];
+                };
+                upsert: {
+                    args: Prisma.InvitationUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$InvitationPayload>;
+                };
+                aggregate: {
+                    args: Prisma.InvitationAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateInvitation>;
+                };
+                groupBy: {
+                    args: Prisma.InvitationGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.InvitationGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.InvitationCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.InvitationCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -380,11 +680,56 @@ export declare const UserScalarFieldEnum: {
     readonly emailVerified: "emailVerified";
     readonly avatarUrl: "avatarUrl";
     readonly isActive: "isActive";
+    readonly twoFaEnabled: "twoFaEnabled";
+    readonly twoFaSecret: "twoFaSecret";
     readonly lastLoginAt: "lastLoginAt";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const RefreshTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly deviceInfo: "deviceInfo";
+    readonly ipAddress: "ipAddress";
+    readonly expiresAt: "expiresAt";
+    readonly revokedAt: "revokedAt";
+    readonly createdAt: "createdAt";
+};
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
+export declare const EmailVerificationTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type EmailVerificationTokenScalarFieldEnum = (typeof EmailVerificationTokenScalarFieldEnum)[keyof typeof EmailVerificationTokenScalarFieldEnum];
+export declare const PasswordResetTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum];
+export declare const InvitationScalarFieldEnum: {
+    readonly id: "id";
+    readonly organizationId: "organizationId";
+    readonly email: "email";
+    readonly role: "role";
+    readonly departmentId: "departmentId";
+    readonly tokenHash: "tokenHash";
+    readonly status: "status";
+    readonly expiresAt: "expiresAt";
+    readonly acceptedAt: "acceptedAt";
+    readonly invitedById: "invitedById";
+    readonly createdAt: "createdAt";
+};
+export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -409,6 +754,8 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>;
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>;
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
+export type EnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus'>;
+export type ListEnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus[]'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
 export type BatchPayload = {
@@ -438,6 +785,10 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
     organization?: Prisma.OrganizationOmit;
     user?: Prisma.UserOmit;
+    refreshToken?: Prisma.RefreshTokenOmit;
+    emailVerificationToken?: Prisma.EmailVerificationTokenOmit;
+    passwordResetToken?: Prisma.PasswordResetTokenOmit;
+    invitation?: Prisma.InvitationOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

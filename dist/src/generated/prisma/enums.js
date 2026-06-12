@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Role = exports.Plan = void 0;
+exports.Role = exports.Plan = exports.InvitationStatus = void 0;
+exports.InvitationStatus = {
+    PENDING: 'PENDING',
+    ACCEPTED: 'ACCEPTED',
+    EXPIRED: 'EXPIRED',
+    REVOKED: 'REVOKED'
+};
 exports.Plan = {
     STARTER: 'STARTER',
     GROWTH: 'GROWTH',

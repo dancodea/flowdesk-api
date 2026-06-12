@@ -16,7 +16,7 @@ exports.RecruitmentModule = RecruitmentModule;
 exports.RecruitmentModule = RecruitmentModule = __decorate([
     (0, common_1.Module)({
         controllers: [recruitment_controller_1.RecruitmentController],
-        providers: [recruitment_service_1.RecruitmentService]
+        providers: [recruitment_service_1.RecruitmentService],
     })
 ], RecruitmentModule);
 //# sourceMappingURL=recruitment.module.js.map

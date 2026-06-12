@@ -16,7 +16,7 @@ exports.ShiftsModule = ShiftsModule;
 exports.ShiftsModule = ShiftsModule = __decorate([
     (0, common_1.Module)({
         controllers: [shifts_controller_1.ShiftsController],
-        providers: [shifts_service_1.ShiftsService]
+        providers: [shifts_service_1.ShiftsService],
     })
 ], ShiftsModule);
 //# sourceMappingURL=shifts.module.js.map

@@ -13,6 +13,10 @@ export declare const AnyNull: import("@prisma/client/runtime/client").AnyNullCla
 export declare const ModelName: {
     readonly Organization: "Organization";
     readonly User: "User";
+    readonly RefreshToken: "RefreshToken";
+    readonly EmailVerificationToken: "EmailVerificationToken";
+    readonly PasswordResetToken: "PasswordResetToken";
+    readonly Invitation: "Invitation";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -48,11 +52,56 @@ export declare const UserScalarFieldEnum: {
     readonly emailVerified: "emailVerified";
     readonly avatarUrl: "avatarUrl";
     readonly isActive: "isActive";
+    readonly twoFaEnabled: "twoFaEnabled";
+    readonly twoFaSecret: "twoFaSecret";
     readonly lastLoginAt: "lastLoginAt";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const RefreshTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly deviceInfo: "deviceInfo";
+    readonly ipAddress: "ipAddress";
+    readonly expiresAt: "expiresAt";
+    readonly revokedAt: "revokedAt";
+    readonly createdAt: "createdAt";
+};
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
+export declare const EmailVerificationTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type EmailVerificationTokenScalarFieldEnum = (typeof EmailVerificationTokenScalarFieldEnum)[keyof typeof EmailVerificationTokenScalarFieldEnum];
+export declare const PasswordResetTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum];
+export declare const InvitationScalarFieldEnum: {
+    readonly id: "id";
+    readonly organizationId: "organizationId";
+    readonly email: "email";
+    readonly role: "role";
+    readonly departmentId: "departmentId";
+    readonly tokenHash: "tokenHash";
+    readonly status: "status";
+    readonly expiresAt: "expiresAt";
+    readonly acceptedAt: "acceptedAt";
+    readonly invitedById: "invitedById";
+    readonly createdAt: "createdAt";
+};
+export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

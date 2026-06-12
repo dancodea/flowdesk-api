@@ -16,7 +16,7 @@ exports.AssetsModule = AssetsModule;
 exports.AssetsModule = AssetsModule = __decorate([
     (0, common_1.Module)({
         controllers: [assets_controller_1.AssetsController],
-        providers: [assets_service_1.AssetsService]
+        providers: [assets_service_1.AssetsService],
     })
 ], AssetsModule);
 //# sourceMappingURL=assets.module.js.map

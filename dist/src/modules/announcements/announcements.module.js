@@ -16,7 +16,7 @@ exports.AnnouncementsModule = AnnouncementsModule;
 exports.AnnouncementsModule = AnnouncementsModule = __decorate([
     (0, common_1.Module)({
         controllers: [announcements_controller_1.AnnouncementsController],
-        providers: [announcements_service_1.AnnouncementsService]
+        providers: [announcements_service_1.AnnouncementsService],
     })
 ], AnnouncementsModule);
 //# sourceMappingURL=announcements.module.js.map
