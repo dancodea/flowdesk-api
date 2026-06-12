@@ -1,0 +1,79 @@
+// FlowDesk — Prisma schema
+// Multi-tenant HR & Payroll SaaS. Every tenant-scoped model carries organizationId.
+// This file seeds the foundational tenancy + auth models so `prisma generate` and
+// the client wiring work end to end; full domain models are added module-by-module.
+// DB: PostgreSQL (Aiven). Connection string comes from DATABASE_URL (see .env),
+// loaded via prisma.config.ts.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tenancy & Auth (foundation)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Organization {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String    @unique
+  industry  String?
+  size      String?
+  country   String?
+  timezone  String?   @default("UTC")
+  currency  String?   @default("USD")
+  logoUrl   String?   @map("logo_url")
+  plan      Plan      @default(STARTER)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  users User[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String        @id @default(uuid()) @db.Uuid
+  organizationId String?       @map("organization_id") @db.Uuid
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  passwordHash   String?       @map("password_hash")
+  fullName       String        @map("full_name")
+  role           Role          @default(EMPLOYEE)
+  emailVerified  Boolean       @default(false) @map("email_verified")
+  avatarUrl      String?       @map("avatar_url")
+  isActive       Boolean       @default(true) @map("is_active")
+  lastLoginAt    DateTime?     @map("last_login_at")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@unique([organizationId, email])
+  @@index([organizationId])
+  @@map("users")
+}
+
+enum Plan {
+  STARTER
+  GROWTH
+  BUSINESS
+  ENTERPRISE
+}
+
+enum Role {
+  SUPER_ADMIN
+  ORG_ADMIN
+  HR_MANAGER
+  PAYROLL_MANAGER
+  DEPARTMENT_MANAGER
+  TEAM_LEAD
+  EMPLOYEE
+  RECRUITER
+  IT_ADMIN
+  FINANCE_VIEWER
+}
