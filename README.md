@@ -1,98 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# FlowDesk API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+The backend for **FlowDesk** — a multi-tenant HR & Payroll SaaS platform. Built with **NestJS 11**, **Prisma 7**, **PostgreSQL**, and **Redis/BullMQ**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This service exposes the versioned REST API (`/api/v1`), a Socket.IO gateway for real-time events, Stripe billing webhooks, and a set of background job processors (payroll calculation, payslip PDFs, emails, push notifications, scheduled reports).
 
-## Description
+> Part of the FlowDesk monorepo alongside [`flowdesk-web`](../flowdesk-web) (Next.js) and [`flowdesk-mobile`](../flowdesk-mobile) (Flutter). The full product specification lives in [`../flowdesk.md`](../flowdesk.md).
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## What's inside
 
-```bash
-$ pnpm install
-```
+| Area | Detail |
+|---|---|
+| **Multi-tenancy** | Pool model — one database, every row scoped by `organization_id`. Tenant resolved from the JWT and enforced by guards/middleware. |
+| **Auth** | Email/password (JWT access + refresh), Google OAuth, email verification, password reset, 2FA (TOTP), session management. |
+| **Domain modules** | Organizations, departments, locations, employees, recruitment, onboarding, attendance, shifts, leave, payroll, performance, assets, notifications, announcements, reports, audit, billing, uploads, settings. |
+| **Real-time** | Socket.IO gateway (`src/gateways`) for notifications, attendance, payroll progress, etc. |
+| **Background jobs** | BullMQ processors in `src/jobs` (payroll, email, push, reports) + scheduled cron jobs. |
+| **Integrations** | Cloudinary (files), Stripe (billing), SendGrid (email), Firebase Admin (FCM push). |
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ pnpm run start
+## Prerequisites
 
-# watch mode
-$ pnpm run start:dev
+- **Node.js** ≥ 20
+- **pnpm** (`npm install -g pnpm`)
+- **PostgreSQL** 15+ (local, or a managed instance such as Aiven — SSL required)
+- **Redis** 7+ (local or managed, e.g. Upstash)
+- Accounts/keys for Cloudinary, Stripe, SendGrid, and Firebase (optional for local dev, but features that depend on them won't work without keys)
 
-# production mode
-$ pnpm run start:prod
-```
+---
 
-## Run tests
+## Setup (clone & run)
 
 ```bash
-# unit tests
-$ pnpm run test
+# 1. Clone and enter the API
+git clone <repo-url>
+cd FlowDesk/flowdesk-api
 
-# e2e tests
-$ pnpm run test:e2e
+# 2. Install dependencies
+#    (postinstall runs `prisma generate` automatically)
+pnpm install
 
-# test coverage
-$ pnpm run test:cov
+# 3. Create your environment file
+cp .env.example .env
+#    Then fill in DATABASE_URL, REDIS_URL, JWT secrets, and any
+#    third-party keys you need. See "Environment variables" below.
+
+# 4. Apply database migrations (creates the schema)
+pnpm prisma:migrate        # dev — creates/applies a migration
+#    For an existing migration set in CI/prod use:
+#    pnpm prisma:deploy
+
+# 5. Start the API in watch mode
+pnpm start:dev
 ```
+
+The API listens on **http://localhost:4000** by default. Swagger API docs are served by the `@nestjs/swagger` setup (check `src/main.ts` for the exact path, typically `/docs`).
+
+### Quickest path with Docker
+
+A local Postgres + Redis pair can be started from the repo root using the Docker Compose snippet in [`../flowdesk.md`](../flowdesk.md) (section 17). Point `DATABASE_URL` / `REDIS_URL` in `.env` at those containers, then run steps 4–5 above.
+
+---
+
+## Environment variables
+
+Copy `.env.example` → `.env` and fill in the values. Key groups:
+
+| Group | Variables |
+|---|---|
+| **App** | `NODE_ENV`, `PORT`, `API_VERSION`, `CLIENT_URL` |
+| **Database** | `DATABASE_URL` (Postgres URI; keep `?sslmode=require` for Aiven) |
+| **Redis** | `REDIS_URL` |
+| **JWT** | `JWT_SECRET`, `JWT_EXPIRES_IN`, `REFRESH_TOKEN_SECRET`, `REFRESH_TOKEN_EXPIRES_IN` |
+| **Google OAuth** | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_CALLBACK_URL` |
+| **Cloudinary** | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_UPLOAD_FOLDER` |
+| **Stripe** | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_*_PRICE_ID` |
+| **SendGrid** | `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME` |
+| **Firebase** | `FIREBASE_PROJECT_ID`, `FIREBASE_PRIVATE_KEY`, `FIREBASE_CLIENT_EMAIL` |
+| **Security** | `BCRYPT_ROUNDS`, `THROTTLE_TTL`, `THROTTLE_LIMIT` |
+| **Misc** | `NAGER_API_BASE_URL` (public-holidays import, optional) |
+
+---
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `pnpm start` | Start the app |
+| `pnpm start:dev` | Start in watch mode |
+| `pnpm start:debug` | Watch mode with debugger |
+| `pnpm start:prod` | Run the compiled build (`node dist/main`) |
+| `pnpm build` | Compile to `dist/` |
+| `pnpm lint` | ESLint with `--fix` |
+| `pnpm format` | Prettier over `src` and `test` |
+| `pnpm test` | Unit tests (Jest) |
+| `pnpm test:e2e` | End-to-end tests |
+| `pnpm test:cov` | Coverage report |
+| `pnpm prisma:generate` | Regenerate the Prisma client |
+| `pnpm prisma:migrate` | Create & apply a dev migration |
+| `pnpm prisma:deploy` | Apply migrations (CI/prod) |
+| `pnpm prisma:studio` | Open Prisma Studio |
+
+---
+
+## Project structure
+
+```
+flowdesk-api/
+├── src/
+│   ├── main.ts                 # Bootstrap (CORS, Swagger, pipes, helmet)
+│   ├── app.module.ts
+│   ├── common/                 # Decorators, guards, interceptors, filters, middleware, DTOs
+│   ├── config/                 # app / database / jwt config
+│   ├── modules/                # Domain modules (auth, employees, payroll, …)
+│   ├── gateways/               # Socket.IO gateway
+│   ├── jobs/                   # BullMQ processors
+│   ├── generated/prisma/       # Generated Prisma client
+│   └── prisma/                 # PrismaService + module
+├── prisma/
+│   ├── schema.prisma           # Data model
+│   └── migrations/
+├── .env.example
+└── package.json
+```
+
+---
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1. Provision PostgreSQL + Redis (managed recommended).
+2. Set all production environment variables.
+3. `pnpm install && pnpm build`
+4. `pnpm prisma:deploy` to apply migrations.
+5. `pnpm start:prod`.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Configure the Stripe webhook endpoint to point at `/api/v1/billing/webhooks` and set `STRIPE_WEBHOOK_SECRET` accordingly. See [`../flowdesk.md`](../flowdesk.md) §17 for the full service list and build order.
