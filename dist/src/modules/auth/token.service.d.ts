@@ -26,23 +26,23 @@ export declare class TokenService {
     rotate(refreshToken: string, payloadFor: (userId: string) => Promise<JwtPayload>, ctx?: SessionContext): Promise<IssuedTokens>;
     verifyRefreshToken(refreshToken: string): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string;
         tokenHash: string;
         deviceInfo: string | null;
         ipAddress: string | null;
         expiresAt: Date;
         revokedAt: Date | null;
+        createdAt: Date;
+        userId: string;
     }>;
     revokeByToken(refreshToken: string): Promise<void>;
     revokeSession(userId: string, sessionId: string): Promise<void>;
     revokeAllForUser(userId: string): Promise<void>;
     listSessions(userId: string): Promise<{
         id: string;
-        createdAt: Date;
         deviceInfo: string | null;
         ipAddress: string | null;
         expiresAt: Date;
+        createdAt: Date;
     }[]>;
     private refreshExpiryDate;
 }

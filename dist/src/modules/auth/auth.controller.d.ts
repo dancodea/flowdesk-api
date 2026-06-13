@@ -11,13 +11,12 @@ export declare class AuthController {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: import("../../generated/prisma/enums").Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -25,6 +24,7 @@ export declare class AuthController {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     login(dto: LoginDto, req: Request): Promise<{
@@ -32,13 +32,12 @@ export declare class AuthController {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: import("../../generated/prisma/enums").Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -46,6 +45,7 @@ export declare class AuthController {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     refresh(dto: RefreshDto, req: Request): Promise<import("./token.service").IssuedTokens>;
@@ -66,13 +66,12 @@ export declare class AuthController {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: import("../../generated/prisma/enums").Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -80,12 +79,15 @@ export declare class AuthController {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     me(user: AuthUser): Promise<Omit<{
         organization: {
             id: string;
+            createdAt: Date;
             name: string;
+            updatedAt: Date;
             slug: string;
             industry: string | null;
             size: string | null;
@@ -94,18 +96,15 @@ export declare class AuthController {
             currency: string | null;
             logoUrl: string | null;
             plan: import("../../generated/prisma/enums").Plan;
-            createdAt: Date;
-            updatedAt: Date;
             deletedAt: Date | null;
         } | null;
     } & {
+        email: string;
         id: string;
         createdAt: Date;
-        updatedAt: Date;
-        organizationId: string | null;
-        email: string;
-        passwordHash: string | null;
         fullName: string;
+        organizationId: string | null;
+        passwordHash: string | null;
         role: import("../../generated/prisma/enums").Role;
         emailVerified: boolean;
         avatarUrl: string | null;
@@ -113,6 +112,7 @@ export declare class AuthController {
         twoFaEnabled: boolean;
         twoFaSecret: string | null;
         lastLoginAt: Date | null;
+        updatedAt: Date;
     }, "passwordHash" | "twoFaSecret">>;
     setup2fa(user: AuthUser): Promise<{
         secret: string;
@@ -127,10 +127,10 @@ export declare class AuthController {
     }>;
     sessions(user: AuthUser): Promise<{
         id: string;
-        createdAt: Date;
         deviceInfo: string | null;
         ipAddress: string | null;
         expiresAt: Date;
+        createdAt: Date;
     }[]>;
     revokeSession(user: AuthUser, dto: RevokeSessionDto): Promise<{
         revoked: boolean;

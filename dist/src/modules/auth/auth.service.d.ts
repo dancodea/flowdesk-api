@@ -20,13 +20,12 @@ export declare class AuthService {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -34,6 +33,7 @@ export declare class AuthService {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     login(dto: LoginDto, ctx?: RequestContext): Promise<{
@@ -41,13 +41,12 @@ export declare class AuthService {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -55,6 +54,7 @@ export declare class AuthService {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     refresh(refreshToken: string, ctx?: RequestContext): Promise<import("./token.service").IssuedTokens>;
@@ -62,7 +62,9 @@ export declare class AuthService {
     me(userId: string): Promise<Omit<{
         organization: {
             id: string;
+            createdAt: Date;
             name: string;
+            updatedAt: Date;
             slug: string;
             industry: string | null;
             size: string | null;
@@ -71,18 +73,15 @@ export declare class AuthService {
             currency: string | null;
             logoUrl: string | null;
             plan: import("../../generated/prisma/enums").Plan;
-            createdAt: Date;
-            updatedAt: Date;
             deletedAt: Date | null;
         } | null;
     } & {
+        email: string;
         id: string;
         createdAt: Date;
-        updatedAt: Date;
-        organizationId: string | null;
-        email: string;
-        passwordHash: string | null;
         fullName: string;
+        organizationId: string | null;
+        passwordHash: string | null;
         role: Role;
         emailVerified: boolean;
         avatarUrl: string | null;
@@ -90,6 +89,7 @@ export declare class AuthService {
         twoFaEnabled: boolean;
         twoFaSecret: string | null;
         lastLoginAt: Date | null;
+        updatedAt: Date;
     }, "passwordHash" | "twoFaSecret">>;
     private issueEmailVerification;
     verifyEmail(token: string): Promise<{
@@ -106,13 +106,12 @@ export declare class AuthService {
         refreshToken: string;
         expiresIn: string;
         user: Omit<{
+            email: string;
             id: string;
             createdAt: Date;
-            updatedAt: Date;
-            organizationId: string | null;
-            email: string;
-            passwordHash: string | null;
             fullName: string;
+            organizationId: string | null;
+            passwordHash: string | null;
             role: Role;
             emailVerified: boolean;
             avatarUrl: string | null;
@@ -120,6 +119,7 @@ export declare class AuthService {
             twoFaEnabled: boolean;
             twoFaSecret: string | null;
             lastLoginAt: Date | null;
+            updatedAt: Date;
         }, "passwordHash" | "twoFaSecret">;
     }>;
     setupTwoFactor(user: AuthUser): Promise<{
@@ -135,10 +135,10 @@ export declare class AuthService {
     }>;
     listSessions(userId: string): Promise<{
         id: string;
-        createdAt: Date;
         deviceInfo: string | null;
         ipAddress: string | null;
         expiresAt: Date;
+        createdAt: Date;
     }[]>;
     revokeSession(userId: string, sessionId: string): Promise<{
         revoked: boolean;
