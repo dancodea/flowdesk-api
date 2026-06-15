@@ -8,8 +8,9 @@ export const PUSH_QUEUE = 'push';
 export class PushProcessor extends WorkerHost {
   private readonly logger = new Logger(PushProcessor.name);
 
-  async process(job: Job): Promise<void> {
+  process(job: Job): Promise<void> {
     this.logger.log(`Processing push job ${job.name} (${job.id})`);
     // TODO: send FCM push notification via firebase-admin.
+    return Promise.resolve();
   }
 }

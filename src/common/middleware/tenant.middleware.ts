@@ -10,9 +10,11 @@ export class TenantMiddleware implements NestMiddleware {
     const token = req.headers.authorization?.split(' ')[1];
     if (token) {
       try {
-        const payload: any = this.jwtService.decode(token);
+        const payload = this.jwtService.decode<{
+          organizationId?: string;
+        } | null>(token);
         if (payload?.organizationId) {
-          (req as any).tenantId = payload.organizationId;
+          req.tenantId = payload.organizationId;
         }
       } catch {
         // No tenant context — downstream guards decide if that is allowed.

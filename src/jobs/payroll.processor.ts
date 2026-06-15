@@ -8,8 +8,9 @@ export const PAYROLL_QUEUE = 'payroll';
 export class PayrollProcessor extends WorkerHost {
   private readonly logger = new Logger(PayrollProcessor.name);
 
-  async process(job: Job): Promise<void> {
+  process(job: Job): Promise<void> {
     this.logger.log(`Processing payroll job ${job.name} (${job.id})`);
     // TODO: generate payslip PDFs, initiate bank transfers, mark run COMPLETED.
+    return Promise.resolve();
   }
 }

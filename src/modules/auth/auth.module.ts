@@ -23,6 +23,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     // Global authorization: enforces @Roles() where present.
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
-  exports: [AuthService, TokenService],
+  exports: [AuthService, TokenService, AuthMailService],
 })
 export class AuthModule {}

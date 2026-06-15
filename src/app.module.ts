@@ -38,6 +38,7 @@ import { AuditModule } from './modules/audit/audit.module';
 import { BillingModule } from './modules/billing/billing.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { SettingsModule } from './modules/settings/settings.module';
+import { InvitationsModule } from './modules/invitations/invitations.module';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { SettingsModule } from './modules/settings/settings.module';
     BillingModule,
     UploadsModule,
     SettingsModule,
+    InvitationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

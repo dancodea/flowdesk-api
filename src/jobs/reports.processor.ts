@@ -8,8 +8,9 @@ export const REPORTS_QUEUE = 'reports';
 export class ReportsProcessor extends WorkerHost {
   private readonly logger = new Logger(ReportsProcessor.name);
 
-  async process(job: Job): Promise<void> {
+  process(job: Job): Promise<void> {
     this.logger.log(`Processing reports job ${job.name} (${job.id})`);
     // TODO: build CSV/Excel exports and scheduled report deliveries.
+    return Promise.resolve();
   }
 }

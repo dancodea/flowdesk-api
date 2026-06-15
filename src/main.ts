@@ -49,4 +49,4 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`FlowDesk API running on http://localhost:${port}/api`);
 }
-bootstrap();
+void bootstrap();

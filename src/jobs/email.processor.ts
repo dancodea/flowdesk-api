@@ -8,8 +8,9 @@ export const EMAIL_QUEUE = 'email';
 export class EmailProcessor extends WorkerHost {
   private readonly logger = new Logger(EmailProcessor.name);
 
-  async process(job: Job): Promise<void> {
+  process(job: Job): Promise<void> {
     this.logger.log(`Processing email job ${job.name} (${job.id})`);
     // TODO: send transactional email via SendGrid.
+    return Promise.resolve();
   }
 }
