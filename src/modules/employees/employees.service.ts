@@ -12,6 +12,7 @@ import { InvitationStatus, Role } from '../../generated/prisma/enums';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AuthMailService } from '../auth/auth-mail.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { OnboardingService } from '../onboarding/onboarding.service';
 import { generateOneTimeToken } from '../auth/token.util';
 import { AUDIT_EVENT } from '../audit/audit.types';
 import type { AuditEvent } from '../audit/audit.types';
@@ -60,6 +61,7 @@ export class EmployeesService {
     private readonly prisma: PrismaService,
     private readonly mail: AuthMailService,
     private readonly notifications: NotificationsService,
+    private readonly onboarding: OnboardingService,
     private readonly events: EventEmitter2,
   ) {}
 
@@ -167,6 +169,9 @@ export class EmployeesService {
 
     // Send portal invite automatically on creation.
     await this.createInvitation(orgId, employee.id, actorId).catch(() => null);
+
+    // Auto-generate onboarding checklist from the org's default template.
+    await this.onboarding.autoCreateChecklist(orgId, employee.id).catch(() => null);
 
     // Notify manager if assigned.
     if (dto.managerId) {
