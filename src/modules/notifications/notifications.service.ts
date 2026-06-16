@@ -1,6 +1,7 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Queue } from 'bullmq';
+import type { Prisma } from '../../generated/prisma/client';
 import { EventsGateway } from '../../gateways/events.gateway';
 import { EMAIL_QUEUE } from '../../jobs/email.processor';
 import { PUSH_QUEUE } from '../../jobs/push.processor';
@@ -51,7 +52,7 @@ export class NotificationsService {
         type: input.type,
         title: input.title,
         body: input.body,
-        data: input.data,
+        data: input.data as Prisma.InputJsonValue | undefined,
       },
     });
 

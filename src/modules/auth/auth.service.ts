@@ -283,6 +283,17 @@ export class AuthService {
         where: { id: invitation.id },
         data: { status: InvitationStatus.ACCEPTED, acceptedAt: new Date() },
       });
+      // Link to the employee record that was created when HR invited this person.
+      await tx.employee
+        .updateMany({
+          where: {
+            organizationId: invitation.organizationId,
+            workEmail: email,
+            userId: null,
+          },
+          data: { userId: created.id },
+        })
+        .catch(() => null);
       return created;
     });
 
