@@ -27,6 +27,7 @@ import { RecruitmentModule } from './modules/recruitment/recruitment.module';
 import { OnboardingModule } from './modules/onboarding/onboarding.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { ShiftsModule } from './modules/shifts/shifts.module';
+import { TimesheetsModule } from './modules/timesheets/timesheets.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { PayrollModule } from './modules/payroll/payroll.module';
 import { PerformanceModule } from './modules/performance/performance.module';
@@ -70,6 +71,7 @@ import { InvitationsModule } from './modules/invitations/invitations.module';
     OnboardingModule,
     AttendanceModule,
     ShiftsModule,
+    TimesheetsModule,
     LeaveModule,
     PayrollModule,
     PerformanceModule,

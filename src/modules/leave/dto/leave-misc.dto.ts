@@ -1,8 +1,9 @@
+import { Type } from 'class-transformer';
 import { IsDateString, IsInt, IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 
 export class LeaveBalanceQueryDto {
   @IsOptional() @IsUUID() employeeId?: string;
-  @IsOptional() @IsInt() @Min(2000) year?: number;
+  @IsOptional() @Type(() => Number) @IsInt() @Min(2000) year?: number;
 }
 
 export class LeaveCalendarQueryDto {
@@ -25,7 +26,7 @@ export class LeaveReportQueryDto {
 }
 
 export class ListHolidaysDto {
-  @IsOptional() @IsInt() @Min(2000) year?: number;
+  @IsOptional() @Type(() => Number) @IsInt() @Min(2000) year?: number;
   @IsOptional() @IsString() country?: string;
   @IsOptional() @IsUUID() locationId?: string;
 }
